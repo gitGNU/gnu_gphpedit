@@ -1,45 +1,36 @@
 /* This file is part of gPHPEdit, a GNOME2 PHP Editor.
  
-   Copyright (C) 2003, 2004, 2005 Andy Jeffries
-      andy@gphpedit.org
+   Copyright (C) 2003, 2004, 2005 Andy Jeffries <andy at gphpedit.org>
+   Copyright (C) 2009 Anoop John <anoop dot john at zyxware.com>
 	  
    For more information or to find the latest release, visit our 
    website at http://www.gphpedit.org/
  
-   This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
- 
-   This program is distributed in the hope that it will be useful, but
-   WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
- 
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
-   02111-1307, USA.
- 
-   The GNU General Public License is contained in the file COPYING.*/
+   gPHPEdit is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
 
+   gPHPEdit is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with gPHPEdit.  If not, see <http://www.gnu.org/licenses/>.
+ 
+   The GNU General Public License is contained in the file COPYING.
+*/
 
 #ifndef TAB_H
 #define TAB_H
 
 #include <sys/types.h>
-#include <sys/stat.h>
 #include <fcntl.h>
-//#include <libgtkhtml/gtkhtmlcontext.h>
-//#include <libgtkhtml/graphics/htmlpainter.h>
-//#include <libgtkhtml/layout/htmlbox.h>
-//#include <libgtkhtml/view/htmlview.h>
-#include <libgtkhtml/gtkhtml.h>
-#include <libgnomevfs/gnome-vfs.h>
-
+#include <gio/gio.h>
 #include "main.h"
 #include "classbrowser.h"
-
+#include <webkit/webkit.h> 
 
 #define TAB_FILE 1
 #define TAB_PHP 2
@@ -57,12 +48,12 @@ typedef struct
 	GSList components;
 	GtkWidget *scintilla;
 	GtkWidget *help_scrolled_window;
-	HtmlDocument *help_document;
-	GtkWidget *help_view;
+	WebKitWebView *help_view;
 	gint scintilla_id;
 	gint file_mtime; // TODO: Change from a gint to something more meaningful
 	GString *filename;
 	gchar *short_filename;
+	gboolean isreadonly;
 	gchar *help_function;
 	GString *opened_from;
 	gint last_parsed_time; // TODO: Change to something more meaningful
@@ -77,6 +68,7 @@ typedef struct
 	guint current_pos;
 	guint current_line;
 	guint file_size;
+	gchar* buffer;
 } Editor;
 
 typedef struct
@@ -104,6 +96,7 @@ gboolean is_php_file(Editor *editor);
 gboolean is_php_file_from_filename(gchar *filename);
 gboolean switch_to_file_or_open(gchar *filename, gint line_number);
 void tab_set_configured_scintilla_properties(GtkScintilla *scintilla, Preferences prefs);
+GtkWidget *get_close_tab_widget(Editor *editor);
 // Probably don't need all of these declared in the .h file, but I'll remove the unnecessary ones later - AJ
 void fold_clicked(GtkWidget *scintilla, guint lineClick,guint bstate);
 void fold_expand(GtkWidget *scintilla, gint line, gboolean doExpand, gboolean force, gint visLevels, gint level);
@@ -120,10 +113,10 @@ void debug_dump_editors(void);
 void register_file_opened(gchar *filename);
 gchar * editor_convert_to_local(Editor *editor);
 gboolean editor_is_local(Editor *editor);
+gboolean uri_is_local_or_http(gchar *uri);
 gchar *convert_to_full(gchar *filename);
 void str_replace(char *Str, char ToRp, char WithC);
-void tab_file_save_opened(GnomeVFSAsyncHandle *fd, GnomeVFSResult result, gpointer li_ptr);
-
+void tab_file_save_opened(GObject *source_object, GAsyncResult *res, gpointer user_data);
 char *macro_message_to_string(gint message);
 
 void set_editor_to_php(Editor *editor);

@@ -1,28 +1,26 @@
 /* This file is part of gPHPEdit, a GNOME2 PHP Editor.
  
-   Copyright (C) 2003, 2004, 2005 Andy Jeffries
-      andy@gphpedit.org
+   Copyright (C) 2003, 2004, 2005 Andy Jeffries <andy at gphpedit.org>
+   Copyright (C) 2009 Anoop John <anoop dot john at zyxware.com>
 	  
    For more information or to find the latest release, visit our 
    website at http://www.gphpedit.org/
  
-   This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
- 
-   This program is distributed in the hope that it will be useful, but
-   WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
- 
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
-   02111-1307, USA.
- 
-   The GNU General Public License is contained in the file COPYING.*/
+   gPHPEdit is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
 
+   gPHPEdit is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with gPHPEdit.  If not, see <http://www.gnu.org/licenses/>.
+ 
+   The GNU General Public License is contained in the file COPYING.
+*/
 
 #ifndef PREFERENCES_H
 #define PREFERENCES_H
@@ -58,6 +56,7 @@ typedef struct
 	gboolean save_session;
 	gboolean use_tabs_instead_spaces;
 	gboolean single_instance_only;
+	gboolean showfolderbrowser;
 
 	// Default formatting
 	gchar *default_font;
@@ -356,6 +355,92 @@ typedef struct
 	gint sql_comment_size;
 	gboolean sql_comment_bold;
 	gboolean sql_comment_italic;
+	
+	//C/C++ formating
+	gint c_default_back;
+	gchar *c_default_font;
+	gint c_default_fore;
+	gint c_default_size;
+	gboolean c_default_bold;
+	gboolean c_default_italic;
+	gint c_string_back;
+	gchar *c_string_font;
+	gint c_string_fore;
+	gint c_string_size;
+	gboolean c_string_bold;
+	gboolean c_string_italic;
+	gint c_character_back;
+	gchar *c_character_font;
+	gint c_character_fore;
+	gint c_character_size;
+	gboolean c_character_bold;
+	gboolean c_character_italic;
+	gint c_word_back;
+	gchar *c_word_font;
+	gint c_word_fore;
+	gint c_word_size;
+	gboolean c_word_bold;
+	gboolean c_word_italic;
+	gint c_number_back;
+	gchar *c_number_font;
+	gint c_number_fore;
+	gint c_number_size;
+	gboolean c_number_bold;
+	gboolean c_number_italic;
+	gint c_identifier_back;
+	gchar *c_identifier_font;
+	gint c_identifier_fore;
+	gint c_identifier_size;
+	gboolean c_identifier_bold;
+	gboolean c_identifier_italic;
+	gint c_comment_back;
+	gchar *c_comment_font;
+	gint c_comment_fore;
+	gint c_comment_size;
+	gboolean c_comment_bold;
+	gboolean c_comment_italic;
+	gint c_commentline_back;
+	gchar *c_commentline_font;
+	gint c_commentline_fore;
+	gint c_commentline_size;
+	gboolean c_commentline_bold;
+	gboolean c_commentline_italic;
+	gint c_preprocesor_back;
+	gchar *c_preprocesor_font;
+	gint c_preprocesor_fore;
+	gint c_preprocesor_size;
+	gboolean c_preprocesor_bold;
+	gboolean c_preprocesor_italic;
+	gint c_operator_back;
+	gchar *c_operator_font;
+	gint c_operator_fore;
+	gint c_operator_size;
+	gboolean c_operator_bold;
+	gboolean c_operator_italic;
+	gint c_regex_back;
+	gchar *c_regex_font;
+	gint c_regex_fore;
+	gint c_regex_size;
+	gboolean c_regex_bold;
+	gboolean c_regex_italic;
+	gint c_uuid_back;
+	gchar *c_uuid_font;
+	gint c_uuid_fore;
+	gint c_uuid_size;
+	gboolean c_uuid_bold;
+	gboolean c_uuid_italic;
+	gint c_verbatim_back;
+	gchar *c_verbatim_font;
+	gint c_verbatim_fore;
+	gint c_verbatim_size;
+	gboolean c_verbatim_bold;
+	gboolean c_verbatim_italic; 
+    	gint c_globalclass_back;
+	gchar *c_globalclass_font;
+	gint c_globalclass_fore;
+	gint c_globalclass_size;
+	gboolean c_globalclass_bold;
+	gboolean c_globalclass_italic;
 }
 Preferences;
 
@@ -364,9 +449,8 @@ extern Preferences preferences;
 
 void preferences_load(void);
 void preferences_save(void);
-void preferences_show(void);
-//void main_window_size_save(void);
-void main_window_size_save_details();
+//void preferences_show(void);
+void main_window_size_save_details(void);
 
 void move_classbrowser_position(void);
 void save_classbrowser_position(void);

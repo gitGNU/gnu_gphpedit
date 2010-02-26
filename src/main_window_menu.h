@@ -1,28 +1,26 @@
 /* This file is part of gPHPEdit, a GNOME2 PHP Editor.
  
-   Copyright (C) 2003, 2004, 2005 Andy Jeffries
-      andy@gphpedit.org
+   Copyright (C) 2003, 2004, 2005 Andy Jeffries <andy at gphpedit.org>
+   Copyright (C) 2009 Anoop John <anoop dot john at zyxware.com>
 	  
    For more information or to find the latest release, visit our 
    website at http://www.gphpedit.org/
  
-   This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
- 
-   This program is distributed in the hope that it will be useful, but
-   WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
- 
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
-   02111-1307, USA.
- 
-   The GNU General Public License is contained in the file COPYING.*/
+   gPHPEdit is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
 
+   gPHPEdit is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with gPHPEdit.  If not, see <http://www.gnu.org/licenses/>.
+ 
+   The GNU General Public License is contained in the file COPYING.
+*/
 
 #ifndef MAIN_WINDOW_MENU_H
 #define MAIN_WINDOW_MENU_H
@@ -30,7 +28,7 @@
 #include "main_window_callbacks.h"
 #include <libgnome/gnome-i18n.h>
 
-
+/*
 static GnomeUIInfo recent_menu[] =
 	{
 		GNOMEUIINFO_ITEM_DATA("New Window", "Create a new text viewer window", reopen_recent, (gpointer)0, NULL),
@@ -55,7 +53,7 @@ static GnomeUIInfo recent_menu[] =
 		GNOMEUIINFO_ITEM_DATA("New Window", "Create a new text viewer window", reopen_recent, (gpointer)19, NULL),
         GNOMEUIINFO_END		
 	};		
-#define NUM_REOPEN_MAX 20
+//#define NUM_REOPEN_MAX 20
 
 static GnomeUIInfo plugin_menu[] =
 	{
@@ -91,7 +89,7 @@ static GnomeUIInfo plugin_menu[] =
 		GNOMEUIINFO_ITEM_DATA("Run Plugin", "Run this plugin", run_plugin, (gpointer)29, NULL),
 		GNOMEUIINFO_END		
 	};	
-#define NUM_PLUGINS_MAX 30
+//#define NUM_PLUGINS_MAX 30
 
 static GnomeUIInfo file1_menu_uiinfo[] =
     {
@@ -132,13 +130,13 @@ static GnomeUIInfo edit1_menu_uiinfo[] =
         GNOMEUIINFO_MENU_PREFERENCES_ITEM (on_preferences1_activate, NULL),
         GNOMEUIINFO_END
     };
-
+*/
 /*static GnomeUIInfo project1_menu_uiinfo[] =
 {
   { GNOME_APP_UI_ITEM, "_Not used yet", "Not used yet", NULL, NULL,NULL, 0, 0, 'u', GDK_MOD1_MASK },
   GNOMEUIINFO_END
 };*/
-
+/*
 static GnomeUIInfo force1_menu_uiinfo[] =
     {
         { GNOME_APP_UI_ITEM, N_("PHP/HTML/XML"), N_("Force syntax highlighting to PHP/HTML/XML mode"), force_php, NULL,NULL, 0, 0, 0, 0 },
@@ -185,5 +183,5 @@ static GnomeUIInfo menubar1_uiinfo[] =
         GNOMEUIINFO_MENU_HELP_TREE (help1_menu_uiinfo),
         GNOMEUIINFO_END
     };
-
+*/
 #endif

@@ -1,28 +1,26 @@
 /* This file is part of gPHPEdit, a GNOME2 PHP Editor.
 
-   Copyright (C) 2003, 2004, 2005 Andy Jeffries
-      andy@gphpedit.org
+   Copyright (C) 2003, 2004, 2005 Andy Jeffries <andy at gphpedit.org>
+   Copyright (C) 2009 Anoop John <anoop dot john at zyxware.com>
 
    For more information or to find the latest release, visit our
    website at http://www.gphpedit.org/
 
-   This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
+   gPHPEdit is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
 
-   This program is distributed in the hope that it will be useful, but
-   WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
+   gPHPEdit is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
-   02111-1307, USA.
+   along with gPHPEdit.  If not, see <http://www.gnu.org/licenses/>.
 
-   The GNU General Public License is contained in the file COPYING.*/
-
+   The GNU General Public License is contained in the file COPYING.
+*/
 
 #include "main.h"
 #include "gphpedit_ipc.h"
@@ -36,7 +34,7 @@
 #include <signal.h>
 #include <fcntl.h>
 #include <stdlib.h>
-
+#include <errno.h>
 
 #define PIPE_PREFIX         "%s-gphpedit-"
 #define PIPE_PREFIX_FULL    "%s-gphpedit-%d"
@@ -122,10 +120,15 @@ poke_existing_instance (int argc, char **argv)
                     /* this is wrong too, but i am lazy to do error checking right now */
                     write (fd, "", 1);
                     for (i = 0; i < argc; ++i) {
-						if (g_path_is_absolute(argv[i]))
-							to_open = gnome_vfs_uri_make_full_from_relative (NULL, argv[i]);
-						else
-							to_open = gnome_vfs_uri_make_full_from_relative (cur_dir, argv[i]);
+						if (g_path_is_absolute(argv[i])){
+							to_open = g_strdup ((gchar *) argv[i]);
+								} else {
+							GString *s_filename;
+							s_filename = g_string_new(cur_dir);
+							s_filename = g_string_append(s_filename, (gchar *) argv[i]);
+							to_open=s_filename->str;
+						g_free(s_filename);
+}
 						if (to_open) {
 							//g_print("From %s to %s\n", argv[i], to_open);
 							write (fd, to_open, strlen (to_open) + 1);

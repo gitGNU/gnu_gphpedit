@@ -1,29 +1,27 @@
 /* This file is part of gPHPEdit, a GNOME2 PHP Editor.
  
-   Copyright (C) 2003, 2004, 2005 Andy Jeffries
-      andy@gphpedit.org
+   Copyright (C) 2003, 2004, 2005 Andy Jeffries <andy at gphpedit.org>
+   Copyright (C) 2009 Anoop John <anoop dot john at zyxware.com>
 	  
    For more information or to find the latest release, visit our 
    website at http://www.gphpedit.org/
  
-   This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
- 
-   This program is distributed in the hope that it will be useful, but
-   WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
- 
+   gPHPEdit is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   gPHPEdit is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
-   02111-1307, USA.
+   along with gPHPEdit.  If not, see <http://www.gnu.org/licenses/>.
  
-   The GNU General Public License is contained in the file COPYING.*/
-
-
+   The GNU General Public License is contained in the file COPYING.
+*/
+#include "stdlib.h"
 #include "syntax_check.h"
 #include "preferences.h"
 #include "main_window.h"
@@ -80,7 +78,7 @@ void syntax_add_lines(gchar *output)
 				line_start += (indent/preferences.indentation_size);
 	
 				line_end = gtk_scintilla_get_line_end_position(GTK_SCINTILLA(main_window.current_editor->scintilla), atoi(line_number)-1);
-	
+			
 				gtk_scintilla_start_styling(GTK_SCINTILLA(main_window.current_editor->scintilla), line_start, 128);
 				gtk_scintilla_set_styling(GTK_SCINTILLA(main_window.current_editor->scintilla), line_end-line_start, INDIC2_MASK);
 			}
@@ -162,7 +160,7 @@ void syntax_check_run(void)
 		command_line = g_string_append(command_line, " -q -l -d html_errors=Off -f ");
 		command_line = g_string_append(command_line, filename->str);
 
-		//g_print("%s\n", command_line->str);
+		g_print("eject:%s\n", command_line->str);
 
 		output = run_php_lint(command_line->str);
 		g_string_free(command_line, TRUE);

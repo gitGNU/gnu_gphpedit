@@ -1,35 +1,30 @@
 /* This file is part of gPHPEdit, a GNOME2 PHP Editor.
  
-   Copyright (C) 2003, 2004, 2005 Andy Jeffries
-      andy@gphpedit.org
+   Copyright (C) 2003, 2004, 2005 Andy Jeffries <andy at gphpedit.org>
+   Copyright (C) 2009 Anoop John <anoop dot john at zyxware.com>
 	  
    For more information or to find the latest release, visit our 
    website at http://www.gphpedit.org/
  
-   This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
- 
-   This program is distributed in the hope that it will be useful, but
-   WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
- 
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
-   02111-1307, USA.
- 
-   The GNU General Public License is contained in the file COPYING.*/
+   gPHPEdit is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
 
+   gPHPEdit is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with gPHPEdit.  If not, see <http://www.gnu.org/licenses/>.
+ 
+   The GNU General Public License is contained in the file COPYING.
+*/
 
 #ifndef MAIN_WINDOW_CALLBACKS_H
 #define MAIN_WINDOW_CALLBACKS_H
-
-#include <libgtkhtml/gtkhtml.h>
-#include <libgtkhtml/layout/htmlbox.h>
-#include <libgtkhtml/layout/htmlboxtext.h>
+#include <webkit/webkit.h> 
 #include "main.h"
 #include "tab.h"
 #include "main_window.h"
@@ -47,6 +42,8 @@ void on_new1_activate(GtkWidget *widget);
 void open_file_ok(GtkFileChooser *file_selection);
 void reopen_recent(GtkWidget *widget, gpointer data);
 void on_open1_activate(GtkWidget *widget);
+//void on_newproj_activate(GtkWidget *widget);
+//void on_openproj_activate(GtkWidget *widget);
 void on_openselected1_activate(GtkWidget *widget);
 void save_file_as_confirm_overwrite(gint reply,gpointer filename);
 void save_file_as_ok(GtkFileChooser *file_selection_box);
@@ -78,7 +75,11 @@ void force_sql(GtkWidget *widget);
 void force_cxx(GtkWidget *widget);
 void force_perl(GtkWidget *widget);
 void force_python(GtkWidget *widget);
-
+void zoom_in(GtkWidget *widget);
+void zoom_out(GtkWidget *widget);
+void zoom_100(GtkWidget *widget);
+void update_zoom_level(void);
+void can_undo(GtkWidget *widget);
 void on_notebook_switch_page (GtkNotebook *notebook, GtkNotebookPage *page,
                               gint page_num, gpointer user_data);
 void inc_search_typed (GtkEntry *entry, const gchar *text, gint length,
@@ -90,11 +91,18 @@ void goto_line_activate(GtkEntry *entry,gpointer user_data);
 void move_block(gint indentation_size);
 void block_indent(GtkWidget *widget);
 void block_unindent(GtkWidget *widget);
+void add_marker(int line);
+void delete_marker(int line);
+void mod_marker(int line);
+void find_next_marker(int line_start);
 void syntax_check(GtkWidget *widget);
 void syntax_check_clear(GtkWidget *widget);
 void lint_row_activated (GtkTreeSelection *selection, gpointer data);
 void goto_line_int(gint line);
 void goto_line(gchar *text);
+GdkPixbuf *get_window_icon (void);
+void selectiontoupper(void);
+void selectiontolower(void);
 gboolean on_notebook_focus_tab(GtkNotebook *notebook,
                                GtkNotebookTab arg1, gpointer user_data);
 void on_reload1_activate(GtkWidget *widget);
@@ -106,6 +114,7 @@ gboolean classbrowser_accept_size(GtkPaned *paned, gpointer user_data);
 
 void keyboard_macro_startstop(GtkWidget *widget);
 void keyboard_macro_playback(GtkWidget *widget);
+void pressed_button_file_chooser(GtkButton *widget, gpointer data);
 void classbrowser_show(void);
 void classbrowser_hide(void);
 void classbrowser_show_hide(GtkWidget *widget);
@@ -114,5 +123,9 @@ void close_all_tabs(void);
 void session_reopen(void);
 void session_save(void);
 
+gint on_parse_current_click(GtkWidget *widget);
+gint on_tab_change_update_classbrowser(GtkWidget *widget);
+void on_tab_close_activate(GtkWidget *widget, Editor *editor);
+void on_tab_close_set_style(GtkWidget *hbox, GtkWidget *button);
 
 #endif

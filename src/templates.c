@@ -1,27 +1,26 @@
 /* This file is part of gPHPEdit, a GNOME2 PHP Editor.
  
-   Copyright (C) 2003, 2004, 2005 Andy Jeffries
-      andy@gphpedit.org
+   Copyright (C) 2003, 2004, 2005 Andy Jeffries <andy at gphpedit.org>
+   Copyright (C) 2009 Anoop John <anoop dot john at zyxware.com>
 	  
    For more information or to find the latest release, visit our 
    website at http://www.gphpedit.org/
  
-   This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
- 
-   This program is distributed in the hope that it will be useful, but
-   WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
- 
+   gPHPEdit is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   gPHPEdit is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
-   02111-1307, USA.
+   along with gPHPEdit.  If not, see <http://www.gnu.org/licenses/>.
  
-   The GNU General Public License is contained in the file COPYING.*/
+   The GNU General Public License is contained in the file COPYING.
+*/
 
 /* a lot of the code in this unit is from:
 	http://www-106.ibm.com/developerworks/linux/library/l-glib2.html
@@ -70,14 +69,13 @@ GString *template_get_filename(void)
 
 void template_db_open(void)
 {
-	GString *template_filename;
+    GString *template_filename;
 	FILE *fp;
 	char buf[16384];
 	
 	template_filename = template_get_filename();
 	  
-    templates = g_hash_table_new(g_str_hash, g_str_equal);
-	 
+       templates = g_hash_table_new(g_str_hash, g_str_equal);
 	fp = fopen(template_filename->str, "r");
   	if (!fp) {	
 		fp = template_db_create(template_filename->str);
@@ -86,10 +84,10 @@ void template_db_open(void)
 			return;
 		}
 	}
-
+        
 	while(fgets(buf, sizeof(buf), fp)) {
         gchar *key, *value;
-		gpointer *old_key=NULL, *old_value=NULL;
+	gpointer *old_key=NULL, *old_value=NULL;
         
 		/* get the first and the second field */
         key = (gpointer)strtok(buf, "\t");
